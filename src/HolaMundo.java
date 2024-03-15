@@ -9,6 +9,6 @@ public class HolaMundo {
 		
 		System.out.println("HOLA MI NOMBRE ES JOSELUU ");
 		
-		System.out.println("HOLA MI NOMBRE ES J>Manuuu ");
+		System.out.println("HOLA MI NOMBRE ES soY RARO ");
 	}
 }
