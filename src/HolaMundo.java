@@ -1,6 +1,10 @@
 
+
 public class HolaMundo {
 	public static void main(String[] args) {
-		System.out.println("¡Hola, mundo!");
+		
+		System.out.println("ï¿½Hola, mundo!");
+		
+		System.out.println("HOLA MI NOMBRE ES VICTOR ");
 	}
 }
