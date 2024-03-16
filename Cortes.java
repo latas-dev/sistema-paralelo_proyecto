@@ -13,8 +13,13 @@ public class Cortes {
 		orden.add(new Pedido(profileSizes[2], profileSizes[0], 480, 870));
 		orden.add(new Pedido(profileSizes[2], profileSizes[2], 2040, 750));
 		orden.add(new Pedido(profileSizes[0], profileSizes[2], 1000, 540));
+		orden.add(new Pedido(profileSizes[2], profileSizes[0], 480, 729));
+		orden.add(new Pedido(profileSizes[2], profileSizes[0], 1100, 1170));
+		orden.add(new Pedido(profileSizes[2], profileSizes[0], 568, 468));
+		orden.add(new Pedido(profileSizes[2], profileSizes[0], 568, 280));
 		
 		printOrden(orden);
+		System.out.println("");
 		
 		Map<String, List<Integer>> lengthsByProfile = new HashMap<>();
         for (Pedido pedido : orden) {
@@ -30,8 +35,9 @@ public class Cortes {
             System.out.println("Lengths: " + lengths);
         }
         
-        Vector<Pedido> resultados = cortar(lengthsByProfile);
+        Vector<Barras> resultados = cortar(lengthsByProfile);
         
+        System.out.println("");
         for(Barras barra : resultados) {
         	barra.printProperties();
         }

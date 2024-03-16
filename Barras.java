@@ -5,23 +5,27 @@ public class Barras {
 	private int cantidad;
 	private int desperdicio;
 	
-	Public Barras(String perfil) {
+	public Barras(String perfil) {
 		this.perfil = perfil;
 		this.longitud = 0;
 		this.cantidad = 0;
 		this.desperdicio = 0;
 	}
 	
-	public static void addCut(int longitud) {
+	public void addCut(int longitud) {
 		if(this.longitud + longitud < 6050) {
 			this.longitud += longitud;
 		} else if(this.longitud + longitud == 6050) {
 			this.longitud = 0;
 			this.cantidad++;
+		} else if(this.longitud + longitud > 6050){
+			this.desperdicio += 6050 - this.longitud;
+			this.longitud = 0;
+			this.cantidad++;
 		} else {
 			this.longitud = 0;
-			this.desperdicio += 6050 - this.longitud;
-			this.cantidad++;
+			this.cantidad = 0;
+			this.desperdicio = 0;
 		}
 	}
 	
