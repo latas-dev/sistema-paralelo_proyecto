@@ -31,9 +31,9 @@ public class Barras {
 	
 	public void printProperties() {
         System.out.println("Perfil: " + perfil);
-        System.out.println("Longitud: " + longitud);
-        System.out.println("Cantidad: " + cantidad);
-        System.out.println("Desperdicio: " + desperdicio);
+        System.out.println("Longitud (Milímetros): " + longitud);
+        System.out.println("Cantidad de Barras usadas: " + cantidad);
+        System.out.println("Milimetros desperdiciadps: " + desperdicio);
         System.out.println();
     }
 }
