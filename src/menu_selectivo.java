@@ -1,88 +1,85 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class menu_selectivo extends JFrame {
-    private JRadioButton sequentialRadioButton;
-    private JRadioButton parallelRadioButton;
-    private JTextField dataTextField;
-    private JButton executeButton;
 
     public menu_selectivo() {
-        setTitle("Selección de Ejecución");
+        setTitle("Perfiles App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Tamaño de la ventana
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.getWidth() * 0.35); // Tamaño ancho 
-        int height = (int) (screenSize.getHeight() * 0.45); // Tamaño altura
-        setSize(width, height);
+        // Crear controles
+        JLabel lblPerfil = new JLabel("Perfil:");
+        JTextArea txtPerfil = new JTextArea(1, 10);
+        JButton btnMostrar = new JButton("Mostrar");
+        JLabel lblMedidas = new JLabel("Medidas:");
+        JLabel[] lblMedidasArray = new JLabel[6];
+        for (int i = 0; i < lblMedidasArray.length; i++) {
+            lblMedidasArray[i] = new JLabel();
+        }
 
-        // Panel principal
-        JPanel mainPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        // Etiqueta de selección
-        JLabel selectionLabel = new JLabel("Selecciona el tipo de ejecución:");
-        mainPanel.add(selectionLabel, gbc);
-
-        // Botones de radio para selección secuencial/paralela
-        ButtonGroup executionGroup = new ButtonGroup();
-        sequentialRadioButton = new JRadioButton("Secuencial");
-        parallelRadioButton = new JRadioButton("Paralela");
-        executionGroup.add(sequentialRadioButton);
-        executionGroup.add(parallelRadioButton);
-
-        gbc.gridy++;
-        mainPanel.add(sequentialRadioButton, gbc);
-        gbc.gridy++;
-        mainPanel.add(parallelRadioButton, gbc);
-
-        // Campo de texto para ingresar datos
-        gbc.gridy++;
-        JLabel dataLabel = new JLabel("Ingrese datos:");
-        mainPanel.add(dataLabel, gbc);
-        gbc.gridy++;
-        dataTextField = new JTextField(20);
-        mainPanel.add(dataTextField, gbc);
-
-        // Botón de ejecución
-        gbc.gridy++;
-        executeButton = new JButton("Ejecutar");
-        executeButton.addActionListener(new ExecuteButtonListener());
-        mainPanel.add(executeButton, gbc);
-
-        add(mainPanel);
-    }
-
-    public void opciones() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                setVisible(true);
+        // Evento para agregar medidas
+        btnMostrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtener medidas
+                String perfil = txtPerfil.getText();
+                if (!perfil.isEmpty()) {
+                    String[] medidas = {"750mm", "890mm", "890mm", "100mm", "1200mm", "750mm"};
+                    for (int i = 0; i < medidas.length; i++) {
+                        lblMedidasArray[i].setText(medidas[i]);
+                    }
+                }
             }
         });
+
+        // Botones
+        JButton btnModificar = new JButton("Modificar");
+        JButton btnEliminar = new JButton("Eliminar");
+        JButton btnListar = new JButton("Listar");
+
+        // Contenedor para las medidas
+        JPanel medidasPanel = new JPanel();
+        medidasPanel.setLayout(new GridLayout(6, 2));
+        medidasPanel.add(lblMedidas);
+        for (JLabel lblMedida : lblMedidasArray) {
+            medidasPanel.add(lblMedida);
+        }
+
+        // Crear un panel para el perfil y el botón de agregar
+        JPanel perfilPanel = new JPanel(new BorderLayout());
+        perfilPanel.add(lblPerfil, BorderLayout.WEST);
+        perfilPanel.add(txtPerfil, BorderLayout.CENTER);
+        perfilPanel.add(btnMostrar, BorderLayout.EAST);
+
+        // Contenedor para los botones
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        buttonsPanel.add(btnModificar);
+        buttonsPanel.add(btnEliminar);
+        buttonsPanel.add(btnListar);
+
+        // Crear layout principal
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        mainPanel.add(perfilPanel, BorderLayout.NORTH);
+        mainPanel.add(medidasPanel, BorderLayout.CENTER);
+        mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+        // Agregar layout principal al JFrame
+        add(mainPanel);
+
+        // Ajustar tamaño y mostrar la ventana
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
+
 
     public static void main(String[] args) {
-        menu_selectivo menu = new menu_selectivo();
-        menu.opciones();
-    }
-
-    private class ExecuteButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            // Verifica qué tipo de ejecución fue seleccionada
-            boolean isSequential = sequentialRadioButton.isSelected();
-            // Obtiene los datos ingresados por el usuario
-            String data = dataTextField.getText();
-            // Aquí puedes realizar la lógica de ejecución secuencial o paralela según la selección del usuario
-            // Ejemplo: if (isSequential) { // Ejecución secuencial } else { // Ejecución paralela }
-            // Aquí puedes imprimir los datos ingresados por el usuario para fines de demostración
-            System.out.println("Datos ingresados: " + data);
-        }
+        SwingUtilities.invokeLater(menu_selectivo::new);
     }
 }
+
 

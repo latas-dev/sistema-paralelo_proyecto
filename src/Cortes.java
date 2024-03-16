@@ -29,7 +29,12 @@ public class Cortes {
             System.out.println("Profile: " + profile);
             System.out.println("Lengths: " + lengths);
         }
-		
+        
+        Vector<Pedido> resultados = cortar(lengthsByProfile);
+        
+        for(Barras barra : resultados) {
+        	barra.printProperties();
+        }
 	}
 	
 	public static void printOrden(Vector<Pedido> orden) {
@@ -37,4 +42,19 @@ public class Cortes {
 			System.out.println(pedido.firstProfile + " " + pedido.firstLength + "mm + " + pedido.secondProfile + " " + pedido.secondLength + "mm");
 		}
 	}
+	
+	private static Vector<Barras> cortar(Map<String, List<Integer>> lengthsByProfile) {
+        Vector<Barras> barrasVector = new Vector<Barras>();
+        for (Map.Entry<String, List<Integer>> entry : lengthsByProfile.entrySet()) {
+            String profile = entry.getKey();
+            List<Integer> lengths = entry.getValue();
+            
+            Barras barras = new Barras(profile);
+            for (int length : lengths) {
+                barras.addCut(length);
+            }
+            barrasVector.add(barras);
+        }
+        return barrasVector;
+    }
 }
